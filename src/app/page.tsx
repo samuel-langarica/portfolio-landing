@@ -415,18 +415,20 @@ function VolunteerSection() {
   const volunteerWork = [
     {
       id: 1,
+      organization: "Marine Conservation Program",
       location: "Split, Croatia",
-      period: "August 2022",
+      period: "2022",
       duration: "4 weeks",
-      description: "Marine conservation program focused on protecting marine ecosystems and biodiversity.",
+      description: "Four week program for the restoration and maintenance of the natural state of the marine ecosystem along the Croatian coast for SSI open water divers.",
       logo: "🌊"
     },
     {
       id: 2,
+      organization: "Le Champ du Ver Luisant",
       location: "Sarrebourg, France",
-      period: "2022",
-      duration: "3 weeks",
-      description: "Local organic farm work with French-only communication. Collaborated with other volunteers in community work for food and homestay modality.",
+      period: "October - September 2021",
+      duration: "5 weeks",
+      description: "Educational exchange of ecological farming practices in a five week volunteering stay in support of a local organic farm.",
       logo: "🌾"
     },
     {
@@ -447,10 +449,11 @@ function VolunteerSection() {
     },
     {
       id: 5,
-      location: "Belgium",
-      period: "2022",
+      organization: "L'école Du Bout Du Monde",
+      location: "Arlon, Belgium",
+      period: "June 2023",
       duration: "2 weeks",
-      description: "Permaculture farm work focusing on sustainable agriculture practices.",
+      description: "Two week volunteering at a permaculture/agroecology and nut polyculture farm. Training center and support for local transition initiatives and pioneering post-carbon projects.",
       logo: "🌱"
     }
   ];
@@ -477,7 +480,12 @@ function VolunteerSection() {
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-1">{volunteer.location}</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                    {volunteer.organization ? volunteer.organization : volunteer.location}
+                  </h3>
+                  {volunteer.organization && (
+                    <h4 className="text-lg font-medium text-green-600 mb-1">{volunteer.location}</h4>
+                  )}
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-sm text-gray-500">{volunteer.period}</span>
                     <span className="text-sm text-green-600 font-medium">• {volunteer.duration}</span>
