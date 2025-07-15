@@ -27,7 +27,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.variable} font-sans antialiased`}>
-        {children}
+        <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-[100] mt-4">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-200 text-yellow-900 font-semibold shadow border border-yellow-300 text-base">
+            <span className="text-xl">🚧</span>
+            Under Construction
+          </span>
+        </div>
+        <div className="pt-16">{/* Push content down so label doesn't overlap */}
+          {children}
+        </div>
       </body>
     </html>
   );
