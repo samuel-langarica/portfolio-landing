@@ -428,14 +428,6 @@ function VolunteerSection() {
     },
     {
       id: 3,
-      location: "Alaska",
-      period: "2022",
-      duration: "2 weeks",
-      description: "Stay with local family farm caring for animals and plants, and taking care of children.",
-      logo: "🏔️"
-    },
-    {
-      id: 4,
       location: "Portugal",
       period: "2022",
       duration: "3 weeks",
@@ -443,7 +435,7 @@ function VolunteerSection() {
       logo: "🐑"
     },
     {
-      id: 5,
+      id: 4,
       organization: "L'école Du Bout Du Monde",
       location: "Arlon, Belgium",
       period: "June 2023",
