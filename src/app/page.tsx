@@ -32,7 +32,6 @@ function Navigation() {
   const navItems = [
     { name: 'Home', href: '#home' },
     { name: 'Work Experience', href: '#work' },
-    { name: 'Projects', href: '#projects' },
     { name: 'Volunteer', href: '#volunteer' },
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
@@ -322,93 +321,7 @@ function WorkExperienceSection() {
   );
 }
 
-// Projects Section
-function ProjectsSection() {
-  const projects = [
-    {
-      id: 1,
-      name: "Barbania - E-commerce Platform",
-      description: "A comprehensive e-commerce solution built with Flutter and Supabase, featuring real-time inventory management and Stripe payment integration.",
-      tags: ["Flutter", "Supabase", "Stripe", "Dart"],
-      github: "#",
-      live: "#"
-    },
-    {
-      id: 2,
-      name: "FinTech Dashboard",
-      description: "Real-time financial analytics dashboard with interactive charts, user management, and automated reporting capabilities.",
-      tags: ["React", "TypeScript", "PostgreSQL", "Drizzle ORM"],
-      github: "#",
-      live: "#"
-    },
-    {
-      id: 3,
-      name: "WhatsApp Business API Integration",
-      description: "Custom CRM system with WhatsApp Business API integration for automated customer communication and lead management.",
-      tags: ["Node.js", "WhatsApp API", "MongoDB", "Docker"],
-      github: "#",
-      live: "#"
-    },
-    {
-      id: 4,
-      name: "SaaS Analytics Platform",
-      description: "Multi-tenant SaaS platform for business analytics with role-based access control and automated data processing.",
-      tags: ["Next.js", "Supabase", "Stripe", "GitHub Actions"],
-      github: "#",
-      live: "#"
-    }
-  ];
 
-  return (
-    <section id="projects" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Featured Projects
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Here are some of the projects I've worked on, showcasing my expertise in full-stack development and modern technologies.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project) => (
-            <div key={project.id} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow border border-gray-100">
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{project.name}</h3>
-                <p className="text-gray-600 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex gap-3">
-                  <a
-                    href={project.github}
-                    className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg text-center font-medium hover:bg-blue-700 transition-colors"
-                  >
-                    GitHub
-                  </a>
-                  <a
-                    href={project.live}
-                    className="flex-1 border border-gray-300 text-gray-700 py-2 px-4 rounded-lg text-center font-medium hover:bg-gray-50 transition-colors"
-                  >
-                    View Project
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 // Volunteer Experience Section
 function VolunteerSection() {
@@ -523,23 +436,7 @@ function AboutSection() {
               </p>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-gray-900">Key Milestones</h3>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                  <span className="text-gray-600">2022 - Founded Barbania</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                  <span className="text-gray-600">2023 - Joined Roii Tech as Full-Stack Developer</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                  <span className="text-gray-600">2024 - Launched multiple SaaS products</span>
-                </div>
-              </div>
-            </div>
+
           </div>
 
           <div className="flex justify-center lg:justify-end">
@@ -850,7 +747,6 @@ export default function Home() {
       <HeroSection />
       <TechnologyIconsSection />
       <WorkExperienceSection />
-      <ProjectsSection />
       <VolunteerSection />
       <AboutSection />
       <SkillsSection />
