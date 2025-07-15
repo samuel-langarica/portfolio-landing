@@ -127,7 +127,7 @@ function HeroSection() {
                 Hi, I'm <span className="text-blue-600">Samuel Langarica</span>
               </h1>
               <p className="text-xl sm:text-2xl text-gray-600 font-medium">
-                Full-Stack Developer focused on SaaS and Fintech
+                Software Developer
               </p>
               <p className="text-lg text-gray-600 max-w-2xl">
                 I build scalable applications that solve real-world problems, specializing in modern web technologies and mobile development.
@@ -261,27 +261,30 @@ function WorkExperienceSection() {
   const experiences = [
     {
       id: 1,
-      company: "Roii Tech",
-      role: "Full-Stack Developer",
-      period: "2023 - Present",
-      description: "Leading development of SaaS applications and fintech solutions. Implemented WhatsApp Business API integration and built scalable backend systems with PostgreSQL and Drizzle ORM.",
-      logo: "RT"
+      company: "Zell Enterprise",
+      role: "Software Developer",
+      period: "Feb 2025 – Present",
+      description: [
+        "Financial technology company building AI-driven tools to optimize portfolio management and enhance customer support.",
+        "Designed and developed a cross-platform mobile app using Flutter (iOS and Android), covering UI/UX, business logic, and API integration.",
+        "Co-developed an internal AI assistant using Python and FastAPI with a Retrieval-Augmented Generation (RAG) pipeline, helping employees resolve customer queries more efficiently via internal tools and APIs.",
+        "Designed and implemented a backend service for deploying finance-specific AI agents, each equipped with domain tools to automate expert-level guidance for end users."
+      ],
+      logo: "ZE"
     },
     {
       id: 2,
-      company: "Barbania",
-      role: "Founder & Lead Developer",
-      period: "2022 - Present",
-      description: "Founded and developed a comprehensive e-commerce platform using Flutter and Supabase. Managed full product lifecycle from concept to deployment.",
-      logo: "BA"
-    },
-    {
-      id: 3,
-      company: "Freelance Developer",
-      role: "Full-Stack Developer",
-      period: "2021 - 2023",
-      description: "Delivered custom web applications and mobile solutions for various clients. Specialized in React, Flutter, and modern backend technologies.",
-      logo: "FD"
+      company: "Roii Tech",
+      role: "Full Stack Developer",
+      period: "Jan 2024 – Feb 2025",
+      description: [
+        "Developed B2B solutions to automate internal processes and empower clients with efficient tools.",
+        "Built and maintained client platforms and internal automation tools using Flutter, with a focus on usability for non-technical users.",
+        "Developed backend services using PostgreSQL and Drizzle ORM, enabling type-safe data access and robust performance.",
+        "Contributed to API design and business logic implementation, collaborating on scalable and secure database schemas.",
+        "Participated in technical interviews and candidate evaluations, helping to uphold engineering quality standards."
+      ],
+      logo: "RT"
     }
   ];
 
@@ -293,7 +296,7 @@ function WorkExperienceSection() {
             Work Experience
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            My professional journey in software development and entrepreneurship.
+            My professional journey in software development.
           </p>
         </div>
 
@@ -311,7 +314,11 @@ function WorkExperienceSection() {
                   <span className="text-sm text-gray-500 font-medium">{experience.period}</span>
                 </div>
                 <h4 className="text-lg font-medium text-blue-600 mb-2">{experience.company}</h4>
-                <p className="text-gray-600">{experience.description}</p>
+                <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                  {experience.description.map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
+                </ul>
               </div>
             </div>
           ))}
@@ -379,7 +386,7 @@ function VolunteerSection() {
             Volunteer Experience
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Giving back to the community through mentorship and knowledge sharing.
+            Giving back to the community through volunteering.
           </p>
         </div>
 
@@ -417,6 +424,7 @@ function VolunteerSection() {
 // About Section
 function AboutSection() {
   return (
+    
     <section id="about" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -426,13 +434,16 @@ function AboutSection() {
             </h2>
             <div className="space-y-4 text-gray-600">
               <p>
-                I'm a passionate full-stack developer with a focus on building scalable SaaS applications and fintech solutions. My journey in software development began with a curiosity for creating digital solutions that solve real-world problems.
+              I’m Samuel, a developer who really enjoys building things that feel useful and well-made. I care about clean, reliable tools — whether that’s a mobile app, a backend service, or just a script that saves someone time. I’m always trying to improve not just what I build, but how I think through problems and work with others.
               </p>
               <p>
-                As the founder of Barbania, I've experienced firsthand the challenges and rewards of building a product from the ground up. This entrepreneurial experience has given me valuable insights into product development, user experience, and business requirements.
+              Lately, I’ve been working on Barbania, a booking app for small businesses — it’s still in progress, but it’s been a great way to explore product design, infrastructure, and how to make something simple but helpful. It’s also reminded me how much I enjoy long-term projects that grow over time.
               </p>
               <p>
-                I believe in writing clean, maintainable code and collaborating effectively with teams. My bilingual background (Spanish-English) allows me to communicate effectively in diverse environments and work with international teams.
+              In the past, I’ve worked at startups where I helped build real products for real users — mobile apps, backend systems, internal tools. I’ve learned a lot about collaboration, making decisions with care, and staying flexible when things change (which they always do).
+              </p>
+              <p>
+              What I’m looking for now is a team where I can keep learning, contribute meaningfully, and build good software with good people. I’m not looking for a perfect fit — just a place where I can do honest work and grow alongside others who care about what they do.
               </p>
             </div>
 
@@ -459,93 +470,13 @@ function AboutSection() {
   );
 }
 
-// Skills Section
-function SkillsSection() {
-  const skillCategories = [
-    {
-      category: "Frontend",
-      skills: [
-        { name: "Flutter", icon: "📱" },
-        { name: "React", icon: "⚛️" },
-        { name: "TypeScript", icon: "📘" },
-        { name: "UI/UX Design", icon: "🎨" }
-      ]
-    },
-    {
-      category: "Backend",
-      skills: [
-        { name: "PostgreSQL", icon: "🐘" },
-        { name: "Supabase", icon: "🔥" },
-        { name: "Drizzle ORM", icon: "🌿" },
-        { name: "Node.js", icon: "🟢" }
-      ]
-    },
-    {
-      category: "APIs & DevOps",
-      skills: [
-        { name: "Stripe API", icon: "💳" },
-        { name: "WhatsApp Business API", icon: "💬" },
-        { name: "Docker", icon: "🐳" },
-        { name: "GitHub Actions", icon: "⚡" }
-      ]
-    },
-    {
-      category: "Other",
-      skills: [
-        { name: "Spanish-English Communication", icon: "🌍" },
-        { name: "Visual Identity", icon: "🎯" },
-        { name: "Product Management", icon: "📊" },
-        { name: "Agile Development", icon: "🔄" }
-      ]
-    }
-  ];
-
-  return (
-    <section id="skills" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Skills & Technologies
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            A comprehensive overview of the technologies and skills I use to build modern applications.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {skillCategories.map((category) => (
-            <div key={category.category} className="space-y-4">
-              <h3 className="text-xl font-semibold text-gray-900 text-center">
-                {category.category}
-              </h3>
-              <div className="space-y-3">
-                {category.skills.map((skill) => (
-                  <div
-                    key={skill.name}
-                    className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors border border-gray-100"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">{skill.icon}</span>
-                      <span className="font-medium text-gray-900">{skill.name}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // Hobbies Section
 function HobbiesSection() {
   const hobbies = [
-    { name: "Music", icon: "🎵", description: "Playing guitar and exploring different genres" },
-    { name: "Urban Cycling", icon: "🚴", description: "Exploring cities on two wheels" },
-    { name: "Photography", icon: "📸", description: "Capturing moments and urban landscapes" },
-    { name: "Reading", icon: "📚", description: "Tech books, biographies, and sci-fi novels" }
+    { name: "iRacing (Sim Racing)", icon: "🏎️", description: "Competitive sim racing and virtual motorsports" },
+    { name: "Chess", icon: "♟️", description: "Strategic thinking and competitive play" },
+    { name: "Outdoor Running", icon: "🏃", description: "Staying active and exploring new routes" },
+    { name: "Science Fiction", icon: "🚀", description: "Reading and exploring futuristic worlds and concepts" }
   ];
 
   return (
@@ -591,53 +522,7 @@ function ContactSection() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <div className="space-y-6">
-            <h3 className="text-xl font-semibold text-gray-900">Send me a message</h3>
-            <form className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-900 mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Your name"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="your.email@example.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-900 mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Tell me about your project..."
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
-
+        <div className="max-w-2xl mx-auto">
           {/* Contact Info */}
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-900">Contact Information</h3>
@@ -648,7 +533,16 @@ function ContactSection() {
                 </div>
                 <div>
                   <p className="font-medium text-gray-900">Email</p>
-                  <p className="text-gray-600">samuel@example.com</p>
+                  <p className="text-gray-600">samuel.langarica.m@gmail.com</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <span className="text-blue-600">📞</span>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900">Phone</p>
+                  <p className="text-gray-600">+52 33 1487 36 11</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -656,17 +550,8 @@ function ContactSection() {
                   <span className="text-blue-600">💬</span>
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">Telegram</p>
-                  <p className="text-gray-600">@samuellangarica</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <span className="text-blue-600">📅</span>
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900">Schedule a Call</p>
-                  <a href="#" className="text-blue-600 hover:underline">Book on Calendly</a>
+                  <p className="font-medium text-gray-900">WhatsApp</p>
+                  <a href="https://wa.me/523314873611" className="text-blue-600 hover:underline">+52 33 1487 36 11</a>
                 </div>
               </div>
             </div>
@@ -698,7 +583,8 @@ function ResumeSection() {
             Get a detailed overview of my experience, skills, and achievements in a comprehensive PDF format.
           </p>
           <a
-            href="#"
+            href="/CV.pdf"
+            download="Samuel_Langarica_CV.pdf"
             className="inline-flex items-center gap-3 bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
             <span>📄</span>
@@ -718,17 +604,14 @@ function Footer() {
         <div className="text-center">
           <div className="text-2xl font-bold text-gray-900 mb-4">Samuel Langarica</div>
           <p className="text-gray-600 mb-6">
-            Full-Stack Developer focused on SaaS and Fintech
+            Software Developer
           </p>
           <div className="flex justify-center gap-6 mb-6">
-            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <a href="https://github.com/samuel-langarica" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 transition-colors">
               GitHub
             </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <a href="https://www.linkedin.com/in/samuel-langarica/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 transition-colors">
               LinkedIn
-            </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Twitter
             </a>
           </div>
           <p className="text-sm text-gray-500">
@@ -749,7 +632,6 @@ export default function Home() {
       <WorkExperienceSection />
       <VolunteerSection />
       <AboutSection />
-      <SkillsSection />
       <HobbiesSection />
       <ContactSection />
       <ResumeSection />

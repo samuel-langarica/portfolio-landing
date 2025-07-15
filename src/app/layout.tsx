@@ -9,7 +9,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Samuel Langarica - Full-Stack Developer",
-  description: "Full-Stack Developer focused on SaaS and Fintech. Specializing in Flutter, React, and modern web technologies.",
+          description: "Full-Stack Developer. Specializing in Flutter, React, and modern web technologies.",
   keywords: ["Full-Stack Developer", "Flutter", "React", "SaaS", "Fintech", "Samuel Langarica"],
   authors: [{ name: "Samuel Langarica" }],
 };
