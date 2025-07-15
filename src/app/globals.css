@@ -1,20 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #3b82f6;
-  --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
-  --muted: #f8fafc;
-  --muted-foreground: #64748b;
-  --accent: #f1f5f9;
-  --accent-foreground: #0f172a;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #3b82f6;
-  --radius: 0.5rem;
+  --chess-light: #f6f5ef;
+  --chess-dark: #0f0f0f;
+  --chess-medium: #1a1a1a;
+  --chess-lighter: #2d2d2d;
+  --accent-blue: #0074f0;
+  --accent-gold: #f5c542;
+  --accent-green: #00d4aa;
+  --wood: #bfa77a;
+  --code-bg: #1e1e1e;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --text-muted: #a0a0a0;
+  --accent-main: #f5c542;
 }
 
 @theme inline {
@@ -50,7 +49,14 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    linear-gradient(45deg, #1a1a1a 25%, transparent 25%),
+    linear-gradient(-45deg, #1a1a1a 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #2d2d2d 75%),
+    linear-gradient(-45deg, transparent 75%, #2d2d2d 75%);
+  background-size: 40px 40px;
+  background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+  background-color: #0f0f0f;
   color: var(--foreground);
   font-family: var(--font-inter), system-ui, sans-serif;
 }
@@ -76,4 +82,141 @@ body {
 /* Smooth transitions */
 * {
   transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+html {
+  font-family: 'Inter', 'Roboto', system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .font-mono {
+  font-family: 'JetBrains Mono', 'Fira Mono', 'Source Code Pro', monospace;
+}
+
+/* Subtle section shadow for depth */
+section {
+  box-shadow: 0 4px 20px 0 rgba(0,0,0,0.3);
+  border-radius: 1rem;
+  background: var(--chess-medium);
+  border: 1px solid var(--chess-lighter);
+}
+
+/* Chess piece accent class */
+.chess-accent {
+  color: var(--accent-main);
+  font-size: 1.5em;
+  vertical-align: middle;
+  text-shadow: 0 0 10px rgba(245, 197, 66, 0.3);
+}
+
+/* Speed line accent */
+.speed-line {
+  display: inline-block;
+  width: 2em;
+  height: 0.2em;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-gold));
+  border-radius: 1em;
+  margin-left: 0.5em;
+  vertical-align: middle;
+  box-shadow: 0 0 10px rgba(0, 116, 240, 0.5);
+}
+
+/* Code block styling */
+.code-block {
+  background: var(--code-bg);
+  border: 1px solid var(--chess-lighter);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent-green);
+  position: relative;
+}
+
+.code-block::before {
+  content: '//';
+  color: var(--text-muted);
+  margin-right: 0.5rem;
+}
+
+/* Floating chess pieces */
+.floating-chess {
+  position: fixed;
+  font-size: 2rem;
+  color: var(--accent-gold);
+  opacity: 0.1;
+  z-index: -1;
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-chess.left {
+  left: 2rem;
+}
+
+.floating-chess.right {
+  right: 2rem;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Navigation improvements */
+nav {
+  background: rgba(15, 15, 15, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--chess-lighter) !important;
+}
+
+nav a {
+  color: var(--text-secondary) !important;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--accent-main) !important;
+  text-shadow: 0 0 10px rgba(245, 197, 66, 0.5);
+}
+
+/* Button improvements */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-main), var(--accent-gold));
+  color: var(--chess-dark);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 116, 240, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-main));
+  color: var(--chess-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 116, 240, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 2px solid var(--chess-lighter);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  box-shadow: 0 0 15px rgba(245, 197, 66, 0.3);
+}
+
+/* Container hover fix */
+.rounded-xl.p-6.bg-\[var\(--chess-lighter\)\]:hover,
+.rounded-xl.p-6.bg-\[var\(--chess-light\)\]:hover {
+  background: #3a320e !important;
+  color: var(--text-primary) !important;
 }

@@ -15,6 +15,54 @@ import {
   SiUnity
 } from 'react-icons/si';
 
+// Terminal Typing Animation Component
+function TerminalTyping({ text, speed = 100, className = "" }: { text: string; speed?: number; className?: string }) {
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    if (currentIndex < text.length) {
+      const timer = setTimeout(() => {
+        setDisplayText(prev => prev + text[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
+      }, speed);
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex, text, speed]);
+
+  // Blinking cursor effect
+  useEffect(() => {
+    const cursorTimer = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 500);
+    return () => clearInterval(cursorTimer);
+  }, []);
+
+  return (
+    <div className={`font-mono ${className}`}>
+      <span className="text-[var(--accent-gold)]">$ </span>
+      <span>{displayText}</span>
+      <span className={`ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>
+        ▋
+      </span>
+    </div>
+  );
+}
+
+// Floating Chess Pieces Component
+function FloatingChessPieces() {
+  return (
+    <>
+      <div className="floating-chess left" style={{ top: '20%' }}>♔</div>
+      <div className="floating-chess right" style={{ top: '30%' }}>♞</div>
+      <div className="floating-chess left" style={{ top: '50%' }}>♜</div>
+      <div className="floating-chess right" style={{ top: '60%' }}>♝</div>
+      <div className="floating-chess left" style={{ top: '80%' }}>♙</div>
+      <div className="floating-chess right" style={{ top: '90%' }}>♟</div>
+    </>
+  );
+}
 
 // Navigation component
 function Navigation() {
@@ -39,13 +87,12 @@ function Navigation() {
   ];
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-gray-200' : 'bg-transparent'
-    }`}>
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
-            <span className="text-xl font-bold text-gray-900">SL</span>
+          <div className="flex-shrink-0 flex items-center gap-2">
+            <span className="chess-accent">♞</span>
+            <span className="text-xl font-bold text-[var(--text-primary)] font-mono tracking-tight">Samuel Langarica</span>
           </div>
           
           {/* Desktop Navigation */}
@@ -55,14 +102,14 @@ function Navigation() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="text-[var(--text-secondary)] hover:text-[var(--accent-blue)] px-3 py-2 rounded-md text-sm font-medium transition-all duration-300"
                 >
                   {item.name}
                 </a>
               ))}
               <a
                 href="#resume"
-                className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+                className="btn-primary text-sm !text-black"
               >
                 Resume
               </a>
@@ -73,7 +120,7 @@ function Navigation() {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-600 hover:text-gray-900 p-2"
+              className="text-[var(--text-secondary)] hover:text-[var(--accent-blue)] p-2"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isMenuOpen ? (
@@ -88,13 +135,13 @@ function Navigation() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200">
+          <div className="md:hidden bg-[var(--chess-medium)]/95 backdrop-blur-md border-t border-[var(--chess-lighter)]">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium transition-colors"
+                  className="text-[var(--text-secondary)] hover:text-[var(--accent-blue)] block px-3 py-2 rounded-md text-base font-medium transition-all duration-300"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
@@ -102,7 +149,7 @@ function Navigation() {
               ))}
               <a
                 href="#resume"
-                className="bg-blue-600 text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition-colors"
+                className="btn-primary block text-base !text-black"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Resume
@@ -118,54 +165,82 @@ function Navigation() {
 // Hero Section
 function HeroSection() {
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50">
+    <section id="home" className="min-h-screen flex items-center justify-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Hi, I'm <span className="text-blue-600">Samuel Langarica</span>
-              </h1>
-              <p className="text-xl sm:text-2xl text-gray-600 font-medium">
-                Software Developer
-              </p>
-              <p className="text-lg text-gray-600 max-w-2xl">
+              {/* Terminal-style greeting */}
+              <div className="mb-8">
+                <TerminalTyping 
+                  text="Hi, I'm Samuel Langarica"
+                  speed={80}
+                  className="text-2xl text-[var(--accent-gold)] mb-4"
+                />
+                <TerminalTyping 
+                  text="whoami"
+                  speed={100}
+                  className="text-lg text-[var(--text-secondary)] mb-2"
+                />
+                <TerminalTyping 
+                  text="Software Developer"
+                  speed={80}
+                  className="text-xl text-[var(--text-primary)] font-mono font-medium flex items-center gap-2"
+                />
+              </div>
+              
+              <p className="text-lg text-[var(--text-secondary)] max-w-2xl">
                 I build scalable applications that solve real-world problems, specializing in modern web technologies and mobile development.
               </p>
+              
+              {/* Code block accent */}
+              <div className="code-block max-w-md">
+                <span className="text-[var(--accent-gold)]">const</span> <span className="text-[var(--text-primary)]">developer</span> = {'{'}
+                <br />
+                {'  '}<span className="text-[var(--accent-gold)]">skills:</span> [<span className="text-[var(--accent-gold)]">'Flutter 🦋'</span>, <span className="text-[var(--accent-gold)]">'PostgreSQL 🐘'</span>, <span className="text-[var(--accent-gold)]">'Python 🐍'</span>],
+                <br />
+                {'  '}<span className="text-[var(--accent-gold)]">hobbies:</span> [<span className="text-[var(--accent-gold)]">'Strategic board domination ♟️'</span>, <span className="text-[var(--accent-gold)]">'Sim racing at 200fps 🏎️'</span>],
+                <br />
+                {'  '}<span className="text-[var(--accent-gold)]">motto:</span> <span className="text-[var(--accent-gold)]">'Turning coffee into code ☕️ {'=>'} 💻'</span>
+                <br />{'}'};
+              </div>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
               <a
                 href="#work"
-                className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-center"
+                className="btn-primary text-center flex items-center gap-2"
               >
-                View My Work
+                <span>♜</span> View My Work
               </a>
               <a
                 href="#contact"
-                className="border border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-center"
+                className="btn-secondary text-center flex items-center gap-2"
               >
-                Get In Touch
+                <span>♙</span> Get In Touch
               </a>
             </div>
           </div>
           
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
-              {/* Subtle decorative elements */}
-              <div className="w-64 h-64 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center relative">
-                <div className="w-56 h-56 rounded-full bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
-                  <div className="w-48 h-48 rounded-full bg-white border-2 border-blue-200 flex items-center justify-center shadow-lg">
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-blue-600 mb-2">SL</div>
-                      <div className="text-sm text-gray-500">Samuel Langarica</div>
-                    </div>
-                  </div>
-                </div>
-                {/* Subtle floating elements */}
-                <div className="absolute -top-2 -right-2 w-4 h-4 bg-blue-400 rounded-full opacity-60 animate-pulse"></div>
-                <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-indigo-400 rounded-full opacity-60 animate-pulse delay-1000"></div>
+              <div className="text-[18rem] text-[var(--accent-main)] opacity-30 animate-chess-dynamic">
+                ♔
               </div>
+              <style jsx>{`
+                @keyframes chessDynamic {
+                  0% { transform: scale(1) rotate(-5deg) translateY(0); }
+                  20% { transform: scale(1.05) rotate(2deg) translateY(-10px); }
+                  40% { transform: scale(1.1) rotate(-3deg) translateY(10px); }
+                  60% { transform: scale(1.08) rotate(3deg) translateY(-5px); }
+                  80% { transform: scale(1.04) rotate(-2deg) translateY(5px); }
+                  100% { transform: scale(1) rotate(-5deg) translateY(0); }
+                }
+                .animate-chess-dynamic {
+                  animation: chessDynamic 6s ease-in-out infinite;
+                  display: inline-block;
+                }
+              `}</style>
             </div>
           </div>
         </div>
@@ -193,13 +268,13 @@ function TechnologyIconsSection() {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-r from-gray-50 to-blue-50">
+    <section className="py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-            Technologies I Work With
+          <h2 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] mb-3 font-mono flex items-center gap-2 justify-center">
+            <span className="chess-accent">♞</span> Technologies I Work With <span className="speed-line" />
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-[var(--text-secondary)] max-w-2xl mx-auto">
             A curated selection of the tools and technologies I use to build modern applications
           </p>
         </div>
@@ -220,19 +295,19 @@ function TechnologyIconsSection() {
                   w-20 h-20 rounded-2xl bg-gradient-to-br ${tech.color} 
                   flex items-center justify-center shadow-lg hover:shadow-xl 
                   transition-all duration-300 transform hover:scale-110 hover:-translate-y-1
-                  group-hover:rotate-3
+                  group-hover:rotate-3 border border-[var(--chess-lighter)]
                 `}>
                   {tech.isText ? (
-                    <span className="text-xl font-bold text-white">{tech.icon}</span>
+                    <span className="text-xl font-bold text-white font-mono">{tech.icon}</span>
                   ) : (
                     <IconComponent className="text-3xl text-white" />
                   )}
                 </div>
                 <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                  <div className="bg-[var(--chess-dark)] text-[var(--text-primary)] text-xs px-2 py-1 rounded whitespace-nowrap border border-[var(--chess-lighter)]">
                     {tech.name}
                   </div>
-                  <div className="w-2 h-2 bg-gray-900 transform rotate-45 absolute -top-1 left-1/2 -translate-x-1/2"></div>
+                  <div className="w-2 h-2 bg-[var(--chess-dark)] transform rotate-45 absolute -top-1 left-1/2 -translate-x-1/2 border-l border-t border-[var(--chess-lighter)]"></div>
                 </div>
               </div>
             );
@@ -289,32 +364,32 @@ function WorkExperienceSection() {
   ];
 
   return (
-    <section id="work" className="py-20 bg-white">
+    <section id="work" className="py-20 bg-[var(--chess-light)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Work Experience
+          <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-4 font-mono flex items-center gap-2 justify-center">
+            <span className="chess-accent">♞</span> Work Experience <span className="speed-line" />
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
             My professional journey in software development.
           </p>
         </div>
 
         <div className="space-y-8">
           {experiences.map((experience) => (
-            <div key={experience.id} className="flex gap-6 p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors border border-gray-100">
+            <div key={experience.id} className="flex gap-6 p-6 bg-[var(--chess-lighter)] rounded-xl hover:bg-[var(--chess-light)] transition-colors border border-[var(--chess-lighter)]">
               <div className="flex-shrink-0">
-                <div className="w-16 h-16 rounded-lg bg-blue-600 flex items-center justify-center shadow-sm">
+                <div className="w-16 h-16 rounded-lg bg-[var(--accent-blue)] flex items-center justify-center shadow-sm">
                   <span className="text-white font-bold text-lg">{experience.logo}</span>
                 </div>
               </div>
               <div className="flex-1">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                  <h3 className="text-xl font-semibold text-gray-900">{experience.role}</h3>
-                  <span className="text-sm text-gray-500 font-medium">{experience.period}</span>
+                  <h3 className="text-xl font-semibold text-[var(--text-primary)]">{experience.role}</h3>
+                  <span className="text-sm text-[var(--text-secondary)] font-medium">{experience.period}</span>
                 </div>
-                <h4 className="text-lg font-medium text-blue-600 mb-2">{experience.company}</h4>
-                <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <h4 className="text-lg font-medium text-[var(--accent-blue)] mb-2">{experience.company}</h4>
+                <ul className="list-disc pl-5 space-y-1 text-[var(--text-secondary)]">
                   {experience.description.map((item, idx) => (
                     <li key={idx}>{item}</li>
                   ))}
@@ -379,38 +454,38 @@ function VolunteerSection() {
   ];
 
   return (
-    <section id="volunteer" className="py-20 bg-white">
+    <section id="volunteer" className="py-20 bg-[var(--chess-dark)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Volunteer Experience
+          <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-4 font-mono flex items-center gap-2 justify-center">
+            <span className="chess-accent">♞</span> Volunteer Experience <span className="speed-line" />
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
             Giving back to the community through volunteering.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
           {volunteerWork.map((volunteer) => (
-            <div key={volunteer.id} className="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors border border-gray-100">
+            <div key={volunteer.id} className="bg-[var(--chess-lighter)] rounded-xl p-6 hover:bg-[var(--chess-light)] transition-colors border border-[var(--chess-lighter)]">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 rounded-lg bg-green-600 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-lg bg-[var(--accent-green)] flex items-center justify-center">
                     <span className="text-2xl">{volunteer.logo}</span>
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                  <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-1">
                     {volunteer.organization ? volunteer.organization : volunteer.location}
                   </h3>
                   {volunteer.organization && (
-                    <h4 className="text-lg font-medium text-green-600 mb-1">{volunteer.location}</h4>
+                    <h4 className="text-lg font-medium text-[var(--accent-green)] mb-1">{volunteer.location}</h4>
                   )}
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm text-gray-500">{volunteer.period}</span>
-                    <span className="text-sm text-green-600 font-medium">• {volunteer.duration}</span>
+                    <span className="text-sm text-[var(--text-secondary)]">{volunteer.period}</span>
+                    <span className="text-sm text-[var(--accent-green)] font-medium">• {volunteer.duration}</span>
                   </div>
-                  <p className="text-gray-600">{volunteer.description}</p>
+                  <p className="text-[var(--text-secondary)]">{volunteer.description}</p>
                 </div>
               </div>
             </div>
@@ -425,43 +500,26 @@ function VolunteerSection() {
 function AboutSection() {
   return (
     
-    <section id="about" className="py-20 bg-gray-50">
+    <section id="about" className="py-20 bg-[var(--chess-dark)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-4xl mx-auto">
           <div className="space-y-6">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-              About Me
+            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] font-mono flex items-center gap-2 justify-center">
+              <span className="chess-accent">♞</span> About Me <span className="speed-line" />
             </h2>
-            <div className="space-y-4 text-gray-600">
+            <div className="space-y-4 text-[var(--text-secondary)]">
               <p>
-              I’m Samuel, a developer who really enjoys building things that feel useful and well-made. I care about clean, reliable tools — whether that’s a mobile app, a backend service, or just a script that saves someone time. I’m always trying to improve not just what I build, but how I think through problems and work with others.
+              I'm Samuel, a developer who really enjoys building things that feel useful and well-made. I care about clean, reliable tools — whether that's a mobile app, a backend service, or just a script that saves someone time. I'm always trying to improve not just what I build, but how I think through problems and work with others.
               </p>
               <p>
-              Lately, I’ve been working on Barbania, a booking app for small businesses — it’s still in progress, but it’s been a great way to explore product design, infrastructure, and how to make something simple but helpful. It’s also reminded me how much I enjoy long-term projects that grow over time.
+              Lately, I've been working on Barbania, a booking app for small businesses — it's still in progress, but it's been a great way to explore product design, infrastructure, and how to make something simple but helpful. It's also reminded me how much I enjoy long-term projects that grow over time.
               </p>
               <p>
-              In the past, I’ve worked at startups where I helped build real products for real users — mobile apps, backend systems, internal tools. I’ve learned a lot about collaboration, making decisions with care, and staying flexible when things change (which they always do).
+              In the past, I've worked at startups where I helped build real products for real users — mobile apps, backend systems, internal tools. I've learned a lot about collaboration, making decisions with care, and staying flexible when things change (which they always do).
               </p>
               <p>
-              What I’m looking for now is a team where I can keep learning, contribute meaningfully, and build good software with good people. I’m not looking for a perfect fit — just a place where I can do honest work and grow alongside others who care about what they do.
+              What I'm looking for now is a team where I can keep learning, contribute meaningfully, and build good software with good people. I'm not looking for a perfect fit — just a place where I can do honest work and grow alongside others who care about what they do.
               </p>
-            </div>
-
-
-          </div>
-
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative">
-              <div className="w-64 h-64 rounded-2xl bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
-                <div className="w-56 h-56 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
-                  <div className="w-48 h-48 rounded-2xl bg-white border-2 border-blue-200 flex items-center justify-center shadow-lg">
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-blue-600 mb-2">SL</div>
-                      <div className="text-sm text-gray-500">Samuel Langarica</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -480,13 +538,13 @@ function HobbiesSection() {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-[var(--chess-dark)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Hobbies & Interests
+          <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-4 font-mono flex items-center gap-2 justify-center">
+            <span className="chess-accent">♞</span> Hobbies & Interests <span className="speed-line" />
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
             When I'm not coding, you can find me pursuing these interests.
           </p>
         </div>
@@ -495,11 +553,11 @@ function HobbiesSection() {
           {hobbies.map((hobby) => (
             <div
               key={hobby.name}
-              className="bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition-colors border border-gray-100 shadow-sm"
+              className="bg-[var(--chess-lighter)] rounded-xl p-6 text-center hover:bg-[var(--chess-light)] transition-colors border border-[var(--chess-lighter)] shadow-sm"
             >
               <div className="text-4xl mb-4">{hobby.icon}</div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{hobby.name}</h3>
-              <p className="text-sm text-gray-600">{hobby.description}</p>
+              <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2">{hobby.name}</h3>
+              <p className="text-sm text-[var(--text-secondary)]">{hobby.description}</p>
             </div>
           ))}
         </div>
@@ -511,13 +569,13 @@ function HobbiesSection() {
 // Contact Section
 function ContactSection() {
   return (
-    <section id="contact" className="py-20 bg-white">
+    <section id="contact" className="py-20 bg-[var(--chess-dark)]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Get In Touch
+          <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-4 font-mono flex items-center gap-2 justify-center">
+            <span className="chess-accent">♞</span> Get In Touch <span className="speed-line" />
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
             I'm always interested in new opportunities and collaborations. Let's discuss how we can work together.
           </p>
         </div>
@@ -525,40 +583,47 @@ function ContactSection() {
         <div className="max-w-2xl mx-auto">
           {/* Contact Info */}
           <div className="space-y-6">
-            <h3 className="text-xl font-semibold text-gray-900">Contact Information</h3>
+            <h3 className="text-xl font-semibold text-[var(--text-primary)]">Contact Information</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <span className="text-blue-600">📧</span>
+                <div className="w-10 h-10 bg-[var(--chess-lighter)] rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-[var(--accent-blue)]" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">Email</p>
-                  <p className="text-gray-600">samuel.langarica.m@gmail.com</p>
+                  <p className="font-medium text-[var(--text-primary)]">Email</p>
+                  <p className="text-[var(--text-secondary)]">samuel.langarica.m@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <span className="text-blue-600">📞</span>
+                <div className="w-10 h-10 bg-[var(--chess-lighter)] rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-[var(--accent-blue)]" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  </svg>
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">Phone</p>
-                  <p className="text-gray-600">+52 33 1487 36 11</p>
+                  <p className="font-medium text-[var(--text-primary)]">Phone</p>
+                  <p className="text-[var(--text-secondary)]">+52 33 1487 36 11</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <span className="text-blue-600">💬</span>
+                <div className="w-10 h-10 bg-[var(--chess-lighter)] rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                  </svg>
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">WhatsApp</p>
-                  <a href="https://wa.me/523314873611" className="text-blue-600 hover:underline">+52 33 1487 36 11</a>
+                  <p className="font-medium text-[var(--text-primary)]">WhatsApp</p>
+                  <a href="https://wa.me/523314873611" className="text-[#25D366] hover:underline">+52 33 1487 36 11</a>
                 </div>
               </div>
             </div>
 
-            <div className="pt-6 border-t border-gray-200">
-              <h4 className="font-semibold text-gray-900 mb-3">Let's work together</h4>
-              <p className="text-gray-600 text-sm">
+            <div className="pt-6 border-t border-[var(--chess-lighter)]">
+              <h4 className="font-semibold text-[var(--text-primary)] mb-3">Let's work together</h4>
+              <p className="text-[var(--text-secondary)] text-sm">
                 I'm available for freelance projects, full-time positions, and interesting collaborations. 
                 Feel free to reach out if you'd like to discuss potential opportunities.
               </p>
@@ -573,19 +638,19 @@ function ContactSection() {
 // Resume Download Section
 function ResumeSection() {
   return (
-    <section id="resume" className="py-20 bg-gray-50">
+    <section id="resume" className="py-20 bg-[var(--chess-dark)]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-12 border border-blue-100">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Download My Resume
+        <div className="bg-gradient-to-r from-[var(--chess-lighter)] to-[var(--chess-medium)] rounded-2xl p-12 border border-[var(--chess-lighter)]">
+          <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-4 font-mono flex items-center gap-2 justify-center">
+            <span className="chess-accent">♞</span> Download My Resume <span className="speed-line" />
           </h2>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-[var(--text-secondary)] mb-8 max-w-2xl mx-auto">
             Get a detailed overview of my experience, skills, and achievements in a comprehensive PDF format.
           </p>
           <a
             href="/CV.pdf"
             download="Samuel_Langarica_CV.pdf"
-            className="inline-flex items-center gap-3 bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-3 bg-[var(--accent-main)] text-[var(--chess-dark)] px-8 py-4 rounded-lg font-semibold hover:bg-[var(--accent-gold)] transition-colors"
           >
             <span>📄</span>
             Download Resume (PDF)
@@ -599,22 +664,22 @@ function ResumeSection() {
 // Footer
 function Footer() {
   return (
-    <footer className="bg-gray-50 py-12 border-t border-gray-200">
+    <footer className="bg-[var(--chess-dark)] py-12 border-t border-[var(--chess-lighter)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <div className="text-2xl font-bold text-gray-900 mb-4">Samuel Langarica</div>
-          <p className="text-gray-600 mb-6">
+          <div className="text-2xl font-bold text-[var(--text-primary)] mb-4">Samuel Langarica</div>
+          <p className="text-[var(--text-secondary)] mb-6">
             Software Developer
           </p>
           <div className="flex justify-center gap-6 mb-6">
-            <a href="https://github.com/samuel-langarica" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <a href="https://github.com/samuel-langarica" target="_blank" rel="noopener noreferrer" className="text-[var(--text-secondary)] hover:text-[var(--accent-blue)] transition-colors">
               GitHub
             </a>
-            <a href="https://www.linkedin.com/in/samuel-langarica/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <a href="https://www.linkedin.com/in/samuel-langarica/" target="_blank" rel="noopener noreferrer" className="text-[var(--text-secondary)] hover:text-[var(--accent-blue)] transition-colors">
               LinkedIn
             </a>
           </div>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-[var(--text-secondary)]">
             © 2024 Samuel Langarica. All rights reserved.
           </p>
         </div>
@@ -625,7 +690,8 @@ function Footer() {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[var(--chess-dark)]">
+      <FloatingChessPieces />
       <Navigation />
       <HeroSection />
       <TechnologyIconsSection />
