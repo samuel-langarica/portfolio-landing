@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   traefik:
     image: traefik:v3.1
@@ -14,22 +12,29 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
+      - "8080:8080" # Traefik dashboard
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./letsencrypt:/letsencrypt"
+    networks:
+      - traefik-network
 
-  app:
+  portfolio-landing:
     build: .
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.samulangarica.rule=Host(`samulangarica.com`)"
-      - "traefik.http.routers.samulangarica.entrypoints=web,websecure"
-      - "traefik.http.routers.samulangarica.tls.certresolver=letsencrypt"
-      - "traefik.http.services.samulangarica.loadbalancer.server.port=3000"
+      - "traefik.http.routers.portfolio.rule=Host(`samulangarica.com`)"
+      - "traefik.http.routers.portfolio.entrypoints=web,websecure"
+      - "traefik.http.routers.portfolio.tls.certresolver=letsencrypt"
+      - "traefik.http.services.portfolio.loadbalancer.server.port=3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
       - HOST=0.0.0.0
-    depends_on:
-      - traefik
+    restart: unless-stopped
+    networks:
+      - traefik-network
+
+networks:
+  traefik-network:
+    external: true
