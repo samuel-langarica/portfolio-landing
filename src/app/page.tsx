@@ -504,7 +504,7 @@ function AboutSection() {
               I'm Samuel, a developer who really enjoys building things that feel useful and well-made. I care about clean, reliable tools whether that's a mobile app, a backend service, or just a script that saves someone time. I'm always trying to improve not just what I build, but how I think through problems and work with others.
               </p>
               <p>
-              Lately, I've been working on Barbania, a booking app for small businesses it's still in progress, but it's been a great way to explore product design, infrastructure, and how to make something simple but helpful. It's also reminded me how much I enjoy long-term projects that grow over time.
+              Lately, I've been working on a booking app for small businesses it's still in progress, but it's been a great way to explore product design, infrastructure, and how to make something simple but helpful. It's also reminded me how much I enjoy long-term projects that grow over time.
               </p>
               <p>
               In the past, I've worked at startups where I helped build real products for real users mobile apps, backend systems, internal tools. I've learned a lot about collaboration, making decisions with care, and staying flexible when things change (which they always do).
