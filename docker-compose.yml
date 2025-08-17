@@ -1,32 +1,12 @@
 services:
-  traefik:
-    image: traefik:v3.1
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.letsencrypt.acme.email=samuel.langarica.m@gmail.com"
-      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
-    ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080" # Traefik dashboard
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "./letsencrypt:/letsencrypt"
-    networks:
-      - traefik-network
-
-  portfolio-landing:
+  barbania-customer-portal:
     build: .
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.portfolio.rule=Host(`samulangarica.com`)"
-      - "traefik.http.routers.portfolio.entrypoints=web,websecure"
-      - "traefik.http.routers.portfolio.tls.certresolver=letsencrypt"
-      - "traefik.http.services.portfolio.loadbalancer.server.port=3000"
+      - "traefik.http.routers.barbania.rule=Host(`portal.barbania.com`)"
+      - "traefik.http.routers.barbania.entrypoints=web,websecure"
+      - "traefik.http.routers.barbania.tls.certresolver=letsencrypt"
+      - "traefik.http.services.barbania.loadbalancer.server.port=3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
