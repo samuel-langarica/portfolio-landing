@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:v3.1
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.letsencrypt.acme.email=you@example.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+
+  app:
+    build: .
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.samulangarica.rule=Host(`samulangarica.com`)"
+      - "traefik.http.routers.samulangarica.entrypoints=web,websecure"
+      - "traefik.http.routers.samulangarica.tls.certresolver=letsencrypt"
+      - "traefik.http.services.samulangarica.loadbalancer.server.port=3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+    depends_on:
+      - traefik
