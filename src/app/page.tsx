@@ -199,7 +199,7 @@ function HeroSection() {
                 <br />
                 {'  '}<span className="text-[var(--accent-gold)]">skills:</span> [<span className="text-[var(--accent-gold)]">'Flutter 🦋'</span>, <span className="text-[var(--accent-gold)]">'PostgreSQL 🐘'</span>, <span className="text-[var(--accent-gold)]">'Python 🐍'</span>],
                 <br />
-                {'  '}<span className="text-[var(--accent-gold)]">hobbies:</span> [<span className="text-[var(--accent-gold)]">'Strategic board domination ♟️'</span>, <span className="text-[var(--accent-gold)]">'Sim racing at 200fps 🏎️'</span>],
+                {'  '}<span className="text-[var(--accent-gold)]">hobbies:</span> [<span className="text-[var(--accent-gold)]">'Strategic board domination ♟️'</span>, <span className="text-[var(--accent-gold)]">'Sim racing 🏎️'</span>],
                 <br />
                 {'  '}<span className="text-[var(--accent-gold)]">motto:</span> <span className="text-[var(--accent-gold)]">'Turning coffee into code ☕️ {'=>'} 💻'</span>
                 <br />{'}'};
